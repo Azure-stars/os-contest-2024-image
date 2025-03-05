@@ -21,7 +21,7 @@
 docker build -t os-contest-image-online -f Dockerfile.online .
 ```
 
-对于离线构建方式，在拉取本仓库后需要额外执行操作将必需的工具链下载到本地：
+对于离线构建方式，在拉取本仓库后需要额外执行操作将必需的工具链下载到本地。以下有两种可选操作，任选其一即可。
 ```bash
 # If you has installed gh cli, you can use the following command to download the necessary resources.
 gh release download v0.1 -R Azure-stars/os-contest-2024-image
@@ -33,8 +33,10 @@ wget https://github.com/Azure-stars/os-contest-2024-image/releases/download/v0.1
 wget https://github.com/Azure-stars/os-contest-2024-image/releases/download/v0.1/qemu-9.2.1.tar.xz
 wget https://github.com/Azure-stars/os-contest-2024-image/releases/download/v0.1/riscv64-linux-musl-cross.tgz
 wget https://github.com/Azure-stars/os-contest-2024-image/releases/download/v0.1/x86_64-linux-musl-cross.tgz
+```
 
-# After downloading the necessary resources, you can execute the following command to build the image.
+然后执行如下操作：
+```bash
 docker build -t os-contest-image -f Dockerfile .
 ```
 
@@ -44,14 +46,14 @@ docker build -t os-contest-image -f Dockerfile .
 我们以构建 OS 比赛测例进行示范。可以执行如下操作：
 
 ```bash
-$ git clone https://github.com/oscomp/testsuits-for-oskernel -b 2025_multiarch
-$ cd testsuits-for-oskernel
-$ docker create --name os-contest-image os-contest-image --privileged -v .:/code -w /code os-contest-image sleep inf
-$ docker start os-contest-image
-$ docker exec -it os-contest-image /bin/bash
+git clone https://github.com/oscomp/testsuits-for-oskernel -b 2025_multiarch
+cd testsuits-for-oskernel
+docker create --name os-contest-image os-contest-image --privileged -v .:/code -w /code os-contest-image sleep inf
+docker start os-contest-image
+docker exec -it os-contest-image /bin/bash
 
 # In the container
-$ make all
+make all
 ```
 
 当执行了如上操作，可以完成 RISCV 架构的测例构建。其他架构的测例构建方式类似，只需要将 `make all` 替换为 `make ARCH=aarch64 all` 或者 `make ARCH=loongarch64 all` 即可。注意上述操作需要在镜像内执行。
