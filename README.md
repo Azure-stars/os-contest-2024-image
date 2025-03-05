@@ -16,12 +16,26 @@
 
 构建方式和正常的 Docker 镜像构建方式一致，只是需要指定 Dockerfile 的路径。
 
-例如：
-
+对于在线构建方式，可以执行如下操作：
 ```bash
-docker build -t os-contest-image -f Dockerfile .
-
 docker build -t os-contest-image-online -f Dockerfile.online .
+```
+
+对于离线构建方式，在拉取本仓库后需要额外执行操作将必需的工具链下载到本地：
+```bash
+# If you has installed gh cli, you can use the following command to download the necessary resources.
+gh release download v0.1 -R Azure-stars/os-contest-2024-image
+
+# Else you can download the necessary resources from the following link.
+wget https://github.com/Azure-stars/os-contest-2024-image/releases/download/v0.1/aarch64-linux-musl-cross.tgz
+wget https://github.com/Azure-stars/os-contest-2024-image/releases/download/v0.1/gcc-13.2.0-loongarch64-linux-gnu.tgz
+wget https://github.com/Azure-stars/os-contest-2024-image/releases/download/v0.1/loongarch64-linux-musl-cross.tgz
+wget https://github.com/Azure-stars/os-contest-2024-image/releases/download/v0.1/qemu-9.2.1.tar.xz
+wget https://github.com/Azure-stars/os-contest-2024-image/releases/download/v0.1/riscv64-linux-musl-cross.tgz
+wget https://github.com/Azure-stars/os-contest-2024-image/releases/download/v0.1/x86_64-linux-musl-cross.tgz
+
+# After downloading the necessary resources, you can execute the following command to build the image.
+docker build -t os-contest-image -f Dockerfile .
 ```
 
 如果想在构建 Docker 镜像时使用代理，请参考[Set proxy using the CLI](https://docs.docker.com/engine/cli/proxy/#set-proxy-using-the-cli)。
