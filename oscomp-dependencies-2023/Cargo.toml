@@ -1,0 +1,16 @@
+[package]
+name = "oscomp-dependencies-old"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rustsbi="0.3.2"
+futures-lite="1.12.0"
+crossbeam-queue="0.3.8"
+heapless="0.7.16"
+async-task="4.4.0"
+bitflags="2.0.2"
+log = "0.4"
+num_enum = { version = "0.5.11", default-features = false }
