@@ -16,21 +16,18 @@ RUN apt-get update \
 
 # Musl toolchain
 WORKDIR /opt
-# COPY x86_64-linux-musl-cross.tgz .
-# COPY riscv64-linux-musl-cross.tgz .
-# COPY aarch64-linux-musl-cross.tgz .
-# COPY loongarch64-linux-musl-cross.tgz .
-RUN wget https://musl.cc/x86_64-linux-musl-cross.tgz \
-    && wget https://musl.cc/riscv64-linux-musl-cross.tgz \
-    && wget https://musl.cc/aarch64-linux-musl-cross.tgz \
+RUN wget https://github.com/userdocs/qbt-musl-cross-make/releases/download/2312/x86_64-linux-musl.tar.xz \
+    && wget https://github.com/userdocs/qbt-musl-cross-make/releases/download/2312/riscv64-linux-musl.tar.xz \
+    && wget https://github.com/userdocs/qbt-musl-cross-make/releases/download/2312/aarch64-linux-musl.tar.xz \
     && wget https://github.com/LoongsonLab/oscomp-toolchains-for-oskernel/releases/download/loongarch64-linux-musl-cross-gcc-13.2.0/loongarch64-linux-musl-cross.tgz \
-    && tar xavf x86_64-linux-musl-cross.tgz \
-    && tar xavf riscv64-linux-musl-cross.tgz \
-    && tar xavf aarch64-linux-musl-cross.tgz \
-    && tar xavf loongarch64-linux-musl-cross.tgz \
-    && rm *.tgz
+    && tar -xvf x86_64-linux-musl.tar.xz \
+    && tar -xvf riscv64-linux-musl.tar.xz \
+    && tar -xvf aarch64-linux-musl.tar.xz \
+    && tar -xvf loongarch64-linux-musl-cross.tgz \
+    && mv loongarch64-linux-musl-cross loongarch64-linux-musl \
+    && rm *.tgz && rm *.tar.xz
 
-ENV PATH=/opt/x86_64-linux-musl-cross/bin:/opt/riscv64-linux-musl-cross/bin:/opt/aarch64-linux-musl-cross/bin:/opt/loongarch64-linux-musl-cross/bin:$PATH
+ENV PATH=/opt/x86_64-linux-musl/bin:/opt/riscv64-linux-musl/bin:/opt/aarch64-linux-musl/bin:/opt/loongarch64-linux-musl/bin:$PATH
 
 WORKDIR /
 

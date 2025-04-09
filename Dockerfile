@@ -16,17 +16,18 @@ RUN apt-get update \
 
 # Musl toolchain
 WORKDIR /opt
-COPY x86_64-linux-musl-cross.tgz .
-COPY riscv64-linux-musl-cross.tgz .
-COPY aarch64-linux-musl-cross.tgz .
+COPY x86_64-linux-musl.tar.xz .
+COPY riscv64-linux-musl.tar.xz .
+COPY aarch64-linux-musl.tar.xz .
 COPY loongarch64-linux-musl-cross.tgz .
-RUN tar xavf x86_64-linux-musl-cross.tgz \
-    && tar xavf riscv64-linux-musl-cross.tgz \
-    && tar xavf aarch64-linux-musl-cross.tgz \
-    && tar xavf loongarch64-linux-musl-cross.tgz \
-    && rm *.tgz
+RUN tar -xvf x86_64-linux-musl.tar.xz \
+    && tar -xvf riscv64-linux-musl.tar.xz \
+    && tar -xvf aarch64-linux-musl.tar.xz \
+    && tar -xvf loongarch64-linux-musl-cross.tgz \
+    && mv loongarch64-linux-musl-cross loongarch64-linux-musl \
+    && rm *.tgz && rm *.tar.xz
 
-ENV PATH=/opt/x86_64-linux-musl-cross/bin:/opt/riscv64-linux-musl-cross/bin:/opt/aarch64-linux-musl-cross/bin:/opt/loongarch64-linux-musl-cross/bin:$PATH
+ENV PATH=/opt/x86_64-linux-musl/bin:/opt/riscv64-linux-musl/bin:/opt/aarch64-linux-musl/bin:/opt/loongarch64-linux-musl/bin:$PATH
 
 # Add gnu toolchain
 # TODO: loongarch toolchain has benn supported in Ubuntu 24.10
