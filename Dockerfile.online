@@ -5,7 +5,7 @@ USER root
 RUN apt-get update && apt-get install -y wget gcc-riscv64-linux-gnu \
     gcc-aarch64-linux-gnu linux-libc-dev make python3 \
     xz-utils python3-venv ninja-build bzip2 meson \
-    pkg-config libglib2.0-dev git libslirp-dev cmake dosfstools build-essential gdb-multiarch
+    pkg-config libglib2.0-dev git libslirp-dev cmake dosfstools build-essential gdb-multiarch automake
 
 RUN echo /etc/apt/sources.list << deb http://apt.llvm.org/bookworm/ llvm-toolchain-bookworm main
 RUN wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
